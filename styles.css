@@ -755,7 +755,7 @@
 }
 
 .ability-test-subject .ability-icon-image {
-  width: clamp(72px, 7vw, 94px);
+  width: clamp(48px, 5vw, 64px);
   border-radius: 12px;
 }
 
