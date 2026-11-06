@@ -202,6 +202,9 @@ const courseRequirements = [
   },
 ];
 
+const creditPageContext =
+  "Students must receive instruction in economics and financial literacy during grades 9-12. Additionally, all students must receive instruction in cardiopulmonary resuscitation and the use of an automatied external defibrillator from an approved source during grades 9-12. Unless the student is exemped from such training due to a disability or by written request of the parent.";
+
 const sealsButton = document.querySelector("#left #seals");
 const creditsButton = document.querySelector("#left #credits");
 const abilityButton = document.querySelector("#left #ability");
@@ -563,6 +566,33 @@ creditsButton.addEventListener("click", () => {
         "Students need to earn at least 20 credits to graduate.",
       ]),
     );
+
+    const contextBox = document.createElement("section");
+    contextBox.className = "credit-page-context";
+    const contextToggle = document.createElement("button");
+    contextToggle.className = "credit-page-context-toggle";
+    contextToggle.type = "button";
+    contextToggle.setAttribute("aria-expanded", "false");
+    contextToggle.setAttribute("aria-controls", "credit-page-context-text");
+    contextToggle.textContent = "＋ Additional credit information";
+
+    const contextText = document.createElement("p");
+    contextText.id = "credit-page-context-text";
+    contextText.className = "credit-page-context-text";
+    contextText.textContent = creditPageContext;
+    contextText.hidden = true;
+
+    contextToggle.addEventListener("click", () => {
+      const isExpanded = contextToggle.getAttribute("aria-expanded") !== "true";
+      contextToggle.setAttribute("aria-expanded", String(isExpanded));
+      contextToggle.textContent = `${isExpanded ? "−" : "＋"} Additional credit information`;
+      contextText.hidden = !isExpanded;
+      contextBox.classList.toggle("is-expanded", isExpanded);
+    });
+
+    contextBox.append(contextToggle, contextText);
+    contentWrapper.append(contextBox);
+
     const cardGrid = document.createElement("div");
     cardGrid.className = "credit-card-grid";
 

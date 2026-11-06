@@ -1674,3 +1674,59 @@ body.credit-detail-closing #gradreq-main {
     grid-template-rows: repeat(3, minmax(150px, auto));
   }
 }
+
+.credit-page-context {
+  flex: 0 0 auto;
+  align-self: flex-end;
+  width: min(100%, 560px);
+  max-width: 100%;
+  padding: 5px 12px;
+  border: 1px solid rgba(80, 88, 96, 0.3);
+  border-radius: 14px;
+  background: #faf8f8;
+  transition: width 260ms ease;
+}
+
+.credit-page-context.is-expanded {
+  width: 100%;
+}
+
+.credit-page-context-toggle {
+  display: block;
+  width: 100%;
+  padding: 5px 2px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.credit-page-context-toggle:focus-visible {
+  outline: 3px solid black;
+  outline-offset: 3px;
+}
+
+.credit-page-context-text {
+  max-width: 64ch;
+  margin: 6px 0 4px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(80, 88, 96, 0.2);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.credit-page-context-text[hidden] {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .credit-page-context {
+    align-self: stretch;
+    width: 100%;
+    max-width: none;
+  }
+}
