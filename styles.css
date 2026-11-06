@@ -692,7 +692,7 @@
 
   .credit-card-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(4, minmax(190px, auto));
+    grid-template-rows: repeat(3, minmax(190px, auto));
     gap: 12px;
   }
 }
@@ -1186,12 +1186,34 @@
   background: #faf8f8;
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
   text-align: center;
-  animation: credit-detail-enter 360ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+  animation: credit-detail-enter 760ms cubic-bezier(0.22, 0.7, 0.25, 1) both;
+}
+
+#gradreq-main {
+  filter: blur(0);
+  transition: filter 760ms cubic-bezier(0.22, 0.7, 0.25, 1);
+}
+
+body.credit-detail-open #gradreq-main {
+  filter: blur(8px);
+}
+
+body.credit-detail-closing #gradreq-main {
+  filter: blur(0);
+  transition-duration: 260ms;
 }
 
 .credit-detail-dialog::backdrop {
   background: rgba(25, 34, 44, 0.38);
-  backdrop-filter: blur(8px);
+  animation: credit-backdrop-enter 760ms cubic-bezier(0.22, 0.7, 0.25, 1) both;
+}
+
+.credit-detail-dialog.is-closing {
+  animation: credit-detail-exit 260ms ease-in both;
+}
+
+.credit-detail-dialog.is-closing::backdrop {
+  animation: credit-backdrop-exit 260ms ease-in both;
 }
 
 .credit-detail-image {
@@ -1271,7 +1293,7 @@
 @keyframes credit-detail-enter {
   from {
     opacity: 0;
-    transform: scale(0.82) translateY(18px);
+    transform: scale(0.94) translateY(10px);
   }
 
   to {
@@ -1280,8 +1302,34 @@
   }
 }
 
+@keyframes credit-detail-exit {
+  to {
+    opacity: 0;
+    transform: scale(0.97) translateY(5px);
+  }
+}
+
+@keyframes credit-backdrop-enter {
+  from {
+    background: rgba(25, 34, 44, 0);
+  }
+
+  to {
+    background: rgba(25, 34, 44, 0.38);
+  }
+}
+
+@keyframes credit-backdrop-exit {
+  to {
+    background: rgba(25, 34, 44, 0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .credit-detail-dialog {
+  .credit-detail-dialog,
+  .credit-detail-dialog::backdrop,
+  .credit-detail-dialog.is-closing,
+  .credit-detail-dialog.is-closing::backdrop {
     animation: none;
   }
 }

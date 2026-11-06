@@ -150,7 +150,7 @@ const courseRequirements = [
     units: 4,
     description: "Earn 4 units of mathematics coursework",
     additionalContext:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.",
+      "Must include 1 unit of Algebra II or equivalent, or 1 unit of Advanced Computer Science. Parents must sign a written statement acknowledging that not taking Algebra II might negatively impact college admissions decisions before a student may substitute Advanced Computer Science for Algebra II. Students who are enrolled in a career technical program may complete a career-based pathway math course as an alternative to Algebra II or Advanced Computer Science.",
     imageurl: "https://cdn-icons-png.flaticon.com/128/2249/2249539.png",
   },
   {
@@ -159,7 +159,7 @@ const courseRequirements = [
     units: 4,
     description: "Earn 4 units of English language arts coursework",
     additionalContext:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.",
+      "No additional context.",
     imageurl: "https://cdn-icons-png.flaticon.com/128/3131/3131650.png",
   },
   {
@@ -168,7 +168,7 @@ const courseRequirements = [
     units: 3,
     description: "Earn 3 units of social studies coursework",
     additionalContext:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.",
+      "Must include at least 1/2 unit in world history and civilizations.",
     imageurl: "https://cdn-icons-png.flaticon.com/128/2682/2682065.png",
   },
   {
@@ -177,36 +177,18 @@ const courseRequirements = [
     units: 3,
     description: "Earn 3 units of science coursework",
     additionalContext:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.",
+      "Must include 1 unit of physical sciences, 1 unit of life sciences, and 1 unit of advanced study in 1 or more of: chemistry, physics, other physical science, advanced biology, or other life science, astronomy, physical geology, or other earth or space science, computer science.",
     imageurl: "https://cdn-icons-png.flaticon.com/128/15394/15394641.png",
   },
   {
     id: 5,
     name: "Health & Physical Education",
-    units: 0.5,
+    units: 1,
     description:
       "Earn 1/2 a unit of health and 1/2 a unit of physical education coursework",
     additionalContext:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.",
+      "Students who have participated in interscholatic athletics, marching band, show choir, or cheerleading for at least 2 full seasons, as defined in the high school handbook, while enrolled in grades 9-12 and as documented by the athletic director, may be excused from the high school PE requirement. Students electing such an excuse shall complete 1/2 unit of at least 60 hours of instruction in another course of study which is designated by the Board as meeting the high school curriculum requirements.",
     imageurl: "https://cdn-icons-png.flaticon.com/128/857/857418.png",
-  },
-  {
-    id: 6,
-    name: "Fine Arts",
-    units: 1,
-    description: "Earn 1 unit of fine arts coursework",
-    additionalContext:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.",
-    imageurl: "https://cdn-icons-png.flaticon.com/128/19034/19034678.png",
-  },
-  {
-    id: 7,
-    name: "Financial Literacy",
-    units: 0.5,
-    description: "Earn 0.5 unit of financial literacy coursework",
-    additionalContext:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.",
-    imageurl: "https://cdn-icons-png.flaticon.com/128/781/781760.png",
   },
   {
     id: 8,
@@ -215,7 +197,7 @@ const courseRequirements = [
     description:
       "Earn 5 units of elective coursework to hit the 20-credit minimum",
     additionalContext:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.",
+      "Must include 1 or any combination of a foreign language, computer coding, fine arts, business, career-technical education, family and consumer sciences, technology, agricultural education, a JROTC program approved by US Congress, or English, Math, Science, or Social Studies courses not otherwise required.",
     imageurl: "https://cdn-icons-png.flaticon.com/128/3898/3898082.png",
   },
 ];
@@ -611,7 +593,6 @@ creditsButton.addEventListener("click", () => {
         closeButton.type = "button";
         closeButton.setAttribute("aria-label", "Close credit details");
         closeButton.textContent = "×";
-        closeButton.addEventListener("click", () => dialog.close());
 
         const detailImage = document.createElement("img");
         detailImage.className = "credit-detail-image";
@@ -650,13 +631,37 @@ creditsButton.addEventListener("click", () => {
         document.body.append(dialog);
         card.setAttribute("aria-expanded", "true");
 
+        let isClosing = false;
+        const closeDialog = () => {
+          if (isClosing) return;
+          isClosing = true;
+          dialog.classList.add("is-closing");
+          document.body.classList.remove("credit-detail-open");
+          document.body.classList.add("credit-detail-closing");
+          window.setTimeout(() => {
+            if (dialog.open) dialog.close();
+          }, 260);
+        };
+
+        closeButton.addEventListener("click", closeDialog);
+        dialog.addEventListener("cancel", (event) => {
+          event.preventDefault();
+          closeDialog();
+        });
         dialog.addEventListener("close", () => {
           card.setAttribute("aria-expanded", "false");
+          document.body.classList.remove(
+            "credit-detail-open",
+            "credit-detail-closing",
+          );
           dialog.remove();
           card.focus();
         });
 
-        const showDialog = () => dialog.showModal();
+        const showDialog = () => {
+          dialog.showModal();
+          document.body.classList.add("credit-detail-open");
+        };
 
         if (
           typeof document.startViewTransition === "function" &&
