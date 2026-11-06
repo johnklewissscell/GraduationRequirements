@@ -473,7 +473,14 @@ function buildSealGrid() {
         imageLink.setAttribute("aria-disabled", "true");
         imageLink.tabIndex = -1;
       }
-      imageLink.append(image);
+
+      const linkHint = document.createElement("span");
+      linkHint.className = "seal-link-hint";
+      linkHint.textContent = "↗";
+      linkHint.setAttribute("aria-hidden", "true");
+      linkHint.hidden = true;
+
+      imageLink.append(image, linkHint);
       imageLink.addEventListener("click", (event) => {
         if (!card.classList.contains("is-selected")) {
           event.preventDefault();
@@ -549,7 +556,6 @@ function setSelectedSeal(sealId, animate = true) {
       "3-4",
       "4-1",
       "4-2",
-      "4-3",
       "4-4",
     ];
     const cards = [...contentWrapper.querySelectorAll(".seal-card")];
@@ -566,11 +572,18 @@ function setSelectedSeal(sealId, animate = true) {
     cards.forEach((card) => {
       const isSelected = expanded && Number(card.dataset.sealId) === sealId;
       card.classList.toggle("is-selected", isSelected);
+      card.classList.toggle(
+        "is-bottom-hidden",
+        expanded && !isSelected && slotsByCard.get(card) === "4-2",
+      );
       card.setAttribute("aria-expanded", String(isSelected));
       const imageLink = card.querySelector(".seal-image-link");
       const hasImageLink = imageLink.hasAttribute("href");
       imageLink.tabIndex = isSelected && hasImageLink ? 0 : -1;
       imageLink.setAttribute("aria-disabled", String(!isSelected || !hasImageLink));
+      imageLink.querySelector(".seal-link-hint").hidden = !(
+        isSelected && hasImageLink
+      );
       card.querySelector(".seal-details").hidden = !isSelected;
       card.querySelector(".seal-close").hidden = !isSelected;
       card.dataset.expandedSlot = isSelected

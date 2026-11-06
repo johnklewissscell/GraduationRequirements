@@ -168,7 +168,9 @@
 }
 
 .seal-image-link {
+  position: relative;
   display: grid;
+  gap: 0;
   place-items: center;
   color: inherit;
   text-decoration: none;
@@ -179,8 +181,30 @@
   cursor: pointer;
 }
 
-.seal-card.is-selected .seal-image-link[href]:hover img {
-  filter: drop-shadow(0 5px 7px rgba(0, 0, 0, 0.2));
+.seal-link-hint {
+  position: absolute;
+  top: -5px;
+  right: -7px;
+  display: grid;
+  width: 20px;
+  height: 20px;
+  place-items: center;
+  border: 1px solid rgba(31, 82, 116, 0.3);
+  border-radius: 50%;
+  background: #f5f9fc;
+  color: #174f75;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.seal-link-hint[hidden] {
+  display: none;
+}
+
+.seal-card.is-selected .seal-image-link[href]:hover .seal-link-hint {
+  background: #e8f1f7;
 }
 
 .seal-image-link:focus-visible {
@@ -582,6 +606,11 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
   grid-template-rows: repeat(4, minmax(0, 1fr));
   grid-auto-flow: row dense;
+}
+
+#contentwrapper.seals-grid.seals-expanded
+  .seal-card-grid > .seal-card.is-bottom-hidden {
+  display: none;
 }
 
 #contentwrapper.seals-grid.seals-expanded
@@ -1378,7 +1407,7 @@ body.credit-detail-closing #gradreq-main {
 }
 
 /* Keep Community Service in the far-right expanded-grid position. */
-@media (min-width: 761px) {
+@media (min-width: 1001px) {
   #contentwrapper.seals-grid.seals-expanded
     .seal-card-grid
     > .seal-card[data-seal-id="11"]:not(.is-selected) {
@@ -1420,6 +1449,8 @@ body.credit-detail-closing #gradreq-main {
     height: 100%;
     min-height: 0;
     overflow-y: auto;
+    justify-content: center;
+    scrollbar-gutter: stable;
     padding-block: clamp(24px, 3vh, 40px);
   }
 }
@@ -1771,6 +1802,339 @@ body.credit-detail-closing #gradreq-main {
   }
 }
 
+/* Keep the app inside the viewport; only expanded cards and dialogs may scroll. */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+#gradreq-main {
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+#right,
+#contentwrapper {
+  min-height: 0;
+}
+
+#contentwrapper {
+  overflow: hidden;
+}
+
+.seal-card-grid,
+.credit-card-grid {
+  min-height: 0;
+}
+
+@media (max-width: 1000px) {
+  #gradreq-main {
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    flex-direction: column;
+    padding: 8px;
+    gap: 8px;
+  }
+
+  #left {
+    flex: 0 0 52px;
+    min-height: 0;
+    flex-direction: row;
+    gap: 8px;
+    padding: 0;
+  }
+
+  #left > div {
+    min-height: 0;
+    padding: 5px;
+    border-radius: 14px;
+  }
+
+  #right {
+    flex: 1 1 0;
+    height: 0;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  #contentwrapper {
+    height: 100%;
+    min-height: 0;
+    padding: 8px;
+    overflow: hidden;
+  }
+
+  #contentwrapper.credits-grid,
+  #contentwrapper.seals-grid {
+    gap: 8px;
+  }
+
+  .requirement-summary {
+    gap: 8px;
+    padding: 8px 10px;
+  }
+
+  .requirement-summary h2 {
+    font-size: clamp(0.78rem, 2.2vh, 1rem);
+  }
+
+  .requirement-summary-points {
+    gap: 5px;
+  }
+
+  .requirement-summary-points p {
+    padding: 4px 7px;
+    font-size: clamp(0.62rem, 1.7vh, 0.78rem);
+  }
+
+  .seal-card-grid {
+    flex: 1 1 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(6, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  #contentwrapper.seals-grid .seal-card-grid {
+    grid-template-rows: repeat(6, minmax(0, 1fr));
+  }
+
+  .seal-card-grid > .seal-card,
+  .seal-card-grid > .seal-card:nth-child(n + 9) {
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+
+  .seal-card {
+    height: 100%;
+    min-height: 0;
+    gap: 4px;
+    padding: 4px;
+    border-radius: 12px;
+  }
+
+  .seal-card img,
+  .seal-image-placeholder {
+    width: clamp(28px, 5vh, 48px);
+    height: clamp(28px, 5vh, 48px);
+  }
+
+  .seal-card h3 {
+    font-size: clamp(0.54rem, 1.6vh, 0.76rem);
+    line-height: 1.1;
+  }
+
+  #contentwrapper.seals-grid.seals-expanded .seal-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(9, minmax(0, 1fr));
+    grid-auto-flow: row;
+  }
+
+  #contentwrapper.seals-grid.seals-expanded
+    .seal-card-grid > .seal-card:not(.is-selected) {
+    height: 100%;
+    min-height: 0;
+  }
+
+  #contentwrapper.seals-grid.seals-expanded
+    .seal-card-grid > .seal-card.is-selected {
+    grid-area: 1 / 1 / span 3 / -1 !important;
+    min-height: 0;
+    overflow-y: auto;
+    justify-content: flex-start;
+    scrollbar-gutter: stable;
+    padding: 10px;
+  }
+
+  .seal-card.is-selected img,
+  .seal-card.is-selected .seal-image-placeholder {
+    width: clamp(44px, 8vh, 72px);
+    height: clamp(44px, 8vh, 72px);
+  }
+
+  .seal-card.is-selected h3 {
+    font-size: clamp(0.82rem, 2.2vh, 1.1rem);
+  }
+
+  .seal-details {
+    gap: 4px;
+  }
+
+  .seal-details-heading,
+  .seal-description,
+  .seal-guidance,
+  .seal-type {
+    font-size: clamp(0.62rem, 1.7vh, 0.78rem);
+  }
+
+  .credit-card-grid {
+    flex: 1 1 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .credit-card-grid .credit-card,
+  .credit-card {
+    height: 100%;
+    min-height: 0;
+    padding: 6px;
+    gap: 4px;
+  }
+
+  .credit-card img {
+    width: clamp(38px, 7vh, 64px);
+    height: clamp(38px, 7vh, 64px);
+    top: calc(50% - 12px);
+  }
+
+  .credit-card[data-credit-id="5"] img {
+    top: calc(50% - 17px);
+  }
+
+  .credit-card h3 {
+    font-size: clamp(0.62rem, 1.8vh, 0.82rem);
+  }
+
+  .credit-card p {
+    font-size: clamp(0.52rem, 1.4vh, 0.68rem);
+  }
+
+  .credit-page-context {
+    align-self: stretch;
+    width: 100%;
+    max-width: none;
+    padding: 3px 8px;
+  }
+
+  .credit-page-context-toggle {
+    padding: 3px 2px;
+    font-size: clamp(0.66rem, 1.8vh, 0.82rem);
+  }
+
+  .credit-page-context-text {
+    margin-block: 4px;
+    padding-top: 5px;
+    font-size: clamp(0.62rem, 1.6vh, 0.76rem);
+  }
+
+  .ability-view {
+    height: 100%;
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 0.9fr) 24px minmax(0, 1.1fr);
+    gap: 6px;
+    padding: 8px !important;
+    overflow: hidden;
+  }
+
+  .ability-section {
+    min-height: 0;
+    padding: clamp(6px, 1.4vh, 12px);
+    border-radius: 12px;
+  }
+
+  .ability-section-primary {
+    min-height: 0;
+    justify-content: space-evenly;
+    gap: 4px;
+  }
+
+  .ability-primary-heading {
+    font-size: clamp(0.76rem, 2vh, 1rem);
+  }
+
+  .ability-section-primary > p,
+  .ability-intro {
+    font-size: clamp(0.62rem, 1.7vh, 0.8rem);
+    line-height: 1.25;
+  }
+
+  .ability-test-subjects {
+    gap: 8px;
+  }
+
+  .ability-test-subject {
+    gap: 3px;
+    font-size: clamp(0.6rem, 1.6vh, 0.76rem);
+  }
+
+  #gradreq-main .ability-test-subject img.ability-icon-image {
+    width: clamp(24px, 4vh, 34px) !important;
+    height: clamp(24px, 4vh, 34px) !important;
+    flex-basis: clamp(24px, 4vh, 34px);
+  }
+
+  .ability-minimum-score {
+    gap: 1px;
+    padding: 4px 8px;
+  }
+
+  .ability-minimum-score strong {
+    font-size: clamp(1rem, 3vh, 1.5rem);
+  }
+
+  .ability-minimum-score span,
+  .ability-pathway-note {
+    font-size: clamp(0.58rem, 1.5vh, 0.72rem);
+  }
+
+  .ability-pathway-note {
+    padding: 5px 7px;
+    line-height: 1.25;
+  }
+
+  .ability-divider {
+    min-height: 0;
+  }
+
+  .ability-divider span {
+    width: 30px;
+    height: 30px;
+    font-size: 0.65rem;
+  }
+
+  .ability-section-alternatives {
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .ability-options {
+    flex: 1 1 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 5px;
+  }
+
+  .ability-option {
+    min-height: 0;
+    gap: 3px;
+    padding: 4px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .ability-option .ability-icon-image {
+    width: clamp(28px, 5vh, 44px);
+    border-radius: 8px;
+  }
+
+  .ability-option h3 {
+    font-size: clamp(0.58rem, 1.6vh, 0.76rem);
+    line-height: 1.1;
+  }
+
+  .ability-option-description {
+    font-size: clamp(0.52rem, 1.35vh, 0.66rem);
+    line-height: 1.2;
+  }
+}
+
 /* Layout for the added Technology Seal and its empty image slot. */
 @media (min-width: 1001px) {
   .seal-card-grid > .seal-card:nth-child(9) { grid-row: 3; grid-column: 1 / span 3; }
@@ -1778,9 +2142,14 @@ body.credit-detail-closing #gradreq-main {
   .seal-card-grid > .seal-card:nth-child(11) { grid-row: 3; grid-column: 7 / span 3; }
   .seal-card-grid > .seal-card:nth-child(12) { grid-row: 3; grid-column: 10 / span 3; }
 
+  #contentwrapper.seals-grid.seals-expanded .seal-card-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: repeat(4, minmax(0, 1fr));
+  }
+
   #contentwrapper.seals-grid.seals-expanded
     .seal-card-grid > .seal-card.is-selected {
-    grid-area: 2 / 2 / span 2 / span 2 !important;
+    grid-area: 2 / 2 / span 3 / span 2 !important;
   }
 
   #contentwrapper.seals-grid.seals-expanded
@@ -1789,8 +2158,35 @@ body.credit-detail-closing #gradreq-main {
   }
 
   #contentwrapper.seals-grid.seals-expanded
-    .seal-card-grid > .seal-card[data-expanded-slot="4-3"] {
-    grid-area: 4 / 3;
+    .seal-card-grid > .seal-card:not(.is-selected) {
+    align-self: center;
+    height: 100%;
+    gap: 6px;
+    padding: 8px;
+  }
+
+  #contentwrapper.seals-grid.seals-expanded
+    .seal-card-grid > .seal-card:not(.is-selected) img,
+  #contentwrapper.seals-grid.seals-expanded
+    .seal-card-grid > .seal-card:not(.is-selected) .seal-image-placeholder {
+    width: clamp(48px, 4.5vw, 64px);
+    height: clamp(48px, 4.5vw, 64px);
+  }
+
+  #contentwrapper.seals-grid.seals-expanded
+    .seal-card-grid > .seal-card:not(.is-selected) h3 {
+    font-size: clamp(0.66rem, 0.85vw, 0.8rem);
+    line-height: 1.15;
+  }
+
+  .seal-card.is-selected .seal-description {
+    font-size: clamp(0.95rem, 1.1vw, 1.08rem);
+    line-height: 1.55;
+  }
+
+  .seal-card.is-selected .seal-guidance {
+    font-size: clamp(0.88rem, 1vw, 0.98rem);
+    line-height: 1.5;
   }
 }
 
@@ -1800,9 +2196,17 @@ body.credit-detail-closing #gradreq-main {
     grid-row: auto !important;
   }
 
+  #contentwrapper.seals-grid .seal-card-grid
+    > .seal-card[data-seal-id="12"]:not(.is-selected) {
+    grid-column: 1 / -1 !important;
+    grid-row: 9 !important;
+    justify-self: center;
+    width: 50%;
+  }
+
   #contentwrapper.seals-grid.seals-expanded .seal-card-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(9, minmax(100px, auto));
+    grid-template-rows: repeat(9, minmax(0, 1fr));
     grid-auto-flow: row;
   }
 
