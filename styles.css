@@ -754,8 +754,11 @@
   font-weight: 700;
 }
 
-.ability-test-subject .ability-icon-image {
-  width: clamp(48px, 5vw, 64px);
+#gradreq-main .ability-test-subject img.ability-icon-image {
+  width: 40px !important;
+  height: 40px !important;
+  flex: 0 0 40px;
+  object-fit: contain;
   border-radius: 12px;
 }
 
@@ -1166,6 +1169,120 @@
   .ability-options {
     flex: 0 0 auto;
     grid-template-rows: repeat(2, minmax(110px, auto));
+  }
+}
+
+.credit-detail-dialog {
+  position: fixed;
+  inset: 0;
+  width: min(620px, calc(100vw - 32px));
+  max-width: none;
+  max-height: min(86vh, 760px);
+  margin: auto;
+  padding: clamp(24px, 5vw, 48px);
+  overflow: auto;
+  border: 1px solid rgba(80, 88, 96, 0.42);
+  border-radius: 24px;
+  background: #faf8f8;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+  text-align: center;
+  animation: credit-detail-enter 360ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+.credit-detail-dialog::backdrop {
+  background: rgba(25, 34, 44, 0.38);
+  backdrop-filter: blur(8px);
+}
+
+.credit-detail-image {
+  display: block;
+  width: clamp(84px, 12vw, 132px);
+  height: clamp(84px, 12vw, 132px);
+  margin: 0 auto 18px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.12));
+}
+
+.credit-detail-dialog h2 {
+  margin: 0 36px 12px;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  line-height: 1.2;
+}
+
+.credit-detail-units {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: #c8d1d9;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.credit-detail-description,
+.credit-context {
+  max-width: 52ch;
+  margin: 18px auto 0;
+  font-size: clamp(0.95rem, 1.3vw, 1.08rem);
+  line-height: 1.6;
+}
+
+.credit-context-heading {
+  margin: 28px 0 0;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.credit-context {
+  margin-top: 8px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: #eeeff1;
+  text-align: left;
+}
+
+.credit-detail-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid rgba(80, 88, 96, 0.42);
+  border-radius: 50%;
+  background: #eeeff1;
+  color: black;
+  font: inherit;
+  font-size: 1.7rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.credit-detail-close:hover {
+  filter: brightness(0.94);
+}
+
+.credit-detail-close:focus-visible {
+  outline: 3px solid black;
+  outline-offset: 3px;
+}
+
+@keyframes credit-detail-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.82) translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .credit-detail-dialog {
+    animation: none;
   }
 }
 

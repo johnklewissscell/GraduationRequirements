@@ -119,7 +119,7 @@ const seals = [
     name: "Fine and Performing Arts Seal",
     type: "Local",
     description:
-      "Demonstrate skill in the fine or performing arts by meeting localized state-approved criteria.",
+      "Demonstrate skills in courses or through extra-curricular activities.",
     imageurl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiXcji2Fu6gKUT48WIoozhWM4c2gdonDmhfKKqyQ1JOg&s=10",
   },
@@ -128,7 +128,7 @@ const seals = [
     name: "Student Engagement Seal",
     type: "Local",
     description:
-      "Participate in extracurricular activities such as athletics, music, or club involvement.",
+      "Meaningfully participate in Board-approved extra-curricular activities.",
     imageurl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnf2us6QKxpumbHZdcNszqM2NWhzNNdtrZ7U-u5uQ4QQ&s=10",
   },
@@ -137,7 +137,7 @@ const seals = [
     name: "Community Service Seal",
     type: "Local",
     description:
-      "Granted to those who complete required hours of community service.",
+      "Granted to those who complete a community service project.",
     imageurl:
       "https://education.ohio.gov/getattachment/Topics/Ohio-s-Graduation-Requirements/Ohio%E2%80%99s-Graduation-Requirements/Graduation-Seals/CS-btn.png.aspx",
   },
@@ -149,6 +149,8 @@ const courseRequirements = [
     name: "Mathematics",
     units: 4,
     description: "Earn 4 units of mathematics coursework",
+    additionalContext:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.",
     imageurl: "https://cdn-icons-png.flaticon.com/128/2249/2249539.png",
   },
   {
@@ -156,6 +158,8 @@ const courseRequirements = [
     name: "English Language Arts",
     units: 4,
     description: "Earn 4 units of English language arts coursework",
+    additionalContext:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.",
     imageurl: "https://cdn-icons-png.flaticon.com/128/3131/3131650.png",
   },
   {
@@ -163,6 +167,8 @@ const courseRequirements = [
     name: "Social Studies",
     units: 3,
     description: "Earn 3 units of social studies coursework",
+    additionalContext:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.",
     imageurl: "https://cdn-icons-png.flaticon.com/128/2682/2682065.png",
   },
   {
@@ -170,14 +176,18 @@ const courseRequirements = [
     name: "Science",
     units: 3,
     description: "Earn 3 units of science coursework",
+    additionalContext:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.",
     imageurl: "https://cdn-icons-png.flaticon.com/128/15394/15394641.png",
   },
   {
     id: 5,
     name: "Health & Physical Education",
-    units: 1,
+    units: 0.5,
     description:
-      "Earn 1 unit combined of health and physical education coursework",
+      "Earn 1/2 a unit of health and 1/2 a unit of physical education coursework",
+    additionalContext:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.",
     imageurl: "https://cdn-icons-png.flaticon.com/128/857/857418.png",
   },
   {
@@ -185,6 +195,8 @@ const courseRequirements = [
     name: "Fine Arts",
     units: 1,
     description: "Earn 1 unit of fine arts coursework",
+    additionalContext:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.",
     imageurl: "https://cdn-icons-png.flaticon.com/128/19034/19034678.png",
   },
   {
@@ -192,14 +204,18 @@ const courseRequirements = [
     name: "Financial Literacy",
     units: 0.5,
     description: "Earn 0.5 unit of financial literacy coursework",
+    additionalContext:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.",
     imageurl: "https://cdn-icons-png.flaticon.com/128/781/781760.png",
   },
   {
     id: 8,
     name: "Elective Coursework",
-    units: "4.5 - 5",
+    units: 5,
     description:
-      "Earn 4.5 to 5 units of elective coursework to hit the 21-credit minimum",
+      "Earn 5 units of elective coursework to hit the 20-credit minimum",
+    additionalContext:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.",
     imageurl: "https://cdn-icons-png.flaticon.com/128/3898/3898082.png",
   },
 ];
@@ -562,7 +578,7 @@ creditsButton.addEventListener("click", () => {
     contentWrapper.classList.add("credits-grid");
     contentWrapper.append(
       createRequirementSummary("Credit Requirement", [
-        "Students need to earn at least 21 credits to graduate.",
+        "Students need to earn at least 20 credits to graduate.",
       ]),
     );
     const cardGrid = document.createElement("div");
@@ -573,7 +589,7 @@ creditsButton.addEventListener("click", () => {
       card.className = "credit-card";
       card.tabIndex = 0;
       card.setAttribute("role", "button");
-      card.setAttribute("aria-pressed", "false");
+      card.setAttribute("aria-expanded", "false");
 
       const image = document.createElement("img");
       image.src = credit.imageurl;
@@ -585,26 +601,91 @@ creditsButton.addEventListener("click", () => {
       const description = document.createElement("p");
       description.textContent = credit.description;
 
-      const units = document.createElement("span");
-      units.className = "credit-units";
-      units.textContent = `${credit.units} ${credit.units === 1 ? "credit" : "credits"}`;
-      units.hidden = true;
+      const openCreditDetails = () => {
+        const dialog = document.createElement("dialog");
+        dialog.className = "credit-detail-dialog";
+        dialog.setAttribute("aria-labelledby", "credit-detail-title");
 
-      const toggleCard = () => {
-        const selected = !card.classList.contains("is-selected");
-        card.classList.toggle("is-selected", selected);
-        card.setAttribute("aria-pressed", String(selected));
-        units.hidden = !selected;
+        const closeButton = document.createElement("button");
+        closeButton.className = "credit-detail-close";
+        closeButton.type = "button";
+        closeButton.setAttribute("aria-label", "Close credit details");
+        closeButton.textContent = "×";
+        closeButton.addEventListener("click", () => dialog.close());
+
+        const detailImage = document.createElement("img");
+        detailImage.className = "credit-detail-image";
+        detailImage.src = credit.imageurl;
+        detailImage.alt = "";
+
+        const detailTitle = document.createElement("h2");
+        detailTitle.id = "credit-detail-title";
+        detailTitle.textContent = credit.name;
+
+        const detailUnits = document.createElement("span");
+        detailUnits.className = "credit-detail-units";
+        detailUnits.textContent = `${credit.units} ${credit.units === 1 ? "credit" : "credits"}`;
+
+        const detailDescription = document.createElement("p");
+        detailDescription.className = "credit-detail-description";
+        detailDescription.textContent = credit.description;
+
+        const contextHeading = document.createElement("h3");
+        contextHeading.className = "credit-context-heading";
+        contextHeading.textContent = "Additional context";
+
+        const context = document.createElement("p");
+        context.className = "credit-context";
+        context.textContent = credit.additionalContext;
+
+        dialog.append(
+          closeButton,
+          detailImage,
+          detailTitle,
+          detailUnits,
+          detailDescription,
+          contextHeading,
+          context,
+        );
+        document.body.append(dialog);
+        card.setAttribute("aria-expanded", "true");
+
+        dialog.addEventListener("close", () => {
+          card.setAttribute("aria-expanded", "false");
+          dialog.remove();
+          card.focus();
+        });
+
+        const showDialog = () => dialog.showModal();
+
+        if (
+          typeof document.startViewTransition === "function" &&
+          !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ) {
+          card.style.viewTransitionName = "credit-detail";
+          try {
+            document.startViewTransition(() => {
+              card.style.viewTransitionName = "none";
+              showDialog();
+              dialog.style.viewTransitionName = "credit-detail";
+            });
+          } catch {
+            card.style.viewTransitionName = "none";
+            showDialog();
+          }
+        } else {
+          showDialog();
+        }
       };
-      card.addEventListener("click", toggleCard);
+      card.addEventListener("click", openCreditDetails);
       card.addEventListener("keydown", (event) => {
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
-          toggleCard();
+          openCreditDetails();
         }
       });
 
-      card.append(image, name, description, units);
+      card.append(image, name, description);
       cardGrid.append(card);
     });
 
