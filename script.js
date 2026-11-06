@@ -280,142 +280,239 @@ function buildAbilityPage() {
     );
     contentWrapper.classList.add("ability-view");
 
-    const leftSection = document.createElement("section");
-    leftSection.className = "ability-section ability-section-primary";
-    const requirementHeading = document.createElement("h2");
-    requirementHeading.className = "ability-primary-heading";
-    requirementHeading.textContent = "End-of-course tests";
+    const pageHeader = document.createElement("header");
+    pageHeader.className = "ability-page-header";
+    const eyebrow = document.createElement("span");
+    eyebrow.className = "ability-eyebrow";
+    eyebrow.textContent = "Competency requirements";
+    const title = document.createElement("h1");
+    title.textContent = "Demonstrating competency";
+    const intro = document.createElement("p");
+    intro.textContent =
+      "Meet the state-test benchmark, or use an approved alternative to demonstrate competency.";
+    pageHeader.append(eyebrow, title, intro);
 
-    const leftText = document.createElement("p");
-    leftText.textContent = "Students must take both tests:";
+    const testPanel = document.createElement("section");
+    testPanel.className = "ability-test-panel";
+    testPanel.setAttribute("aria-labelledby", "ability-test-title");
+    const testPanelHeading = document.createElement("div");
+    testPanelHeading.className = "ability-test-panel-heading";
+    const testHeading = document.createElement("h2");
+    testHeading.id = "ability-test-title";
+    testHeading.textContent = "State tests";
+    testPanelHeading.append(testHeading);
 
-    const testSubjects = document.createElement("div");
-    testSubjects.className = "ability-test-subjects";
-    [
-      {
-        name: "Algebra I",
-        imageurl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmtHzNvvQFi-xs1NCcFAUvPEf_QPrcyW_A5L_1wRtsxA&s=10",
-      },
-      {
-        name: "English II",
-        imageurl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ0ud_RhM07Tt3jZ58eVhyaAHEaK6CMTP3pjKgTQjDng&s=10",
-      },
-    ].forEach((subject) => {
-      const subjectCard = document.createElement("div");
-      subjectCard.className = "ability-test-subject";
-      //insert icon here
-      const icon = document.createElement("img");
-      icon.className = "ability-icon-image";
-      icon.src = subject.imageurl;
-      icon.alt = `${subject.name} icon`;
-      const label = document.createElement("span");
-      label.textContent = subject.name;
-      subjectCard.append(icon, label);
-      testSubjects.append(subjectCard);
+    const testPanelBody = document.createElement("div");
+    testPanelBody.className = "ability-test-panel-body";
+    const testSummary = document.createElement("p");
+    testSummary.className = "ability-test-summary";
+    testSummary.textContent =
+      "Students must earn competency scores on both end-of-course tests:";
+    const subjectList = document.createElement("div");
+    subjectList.className = "ability-subject-list";
+    ["Algebra I", "English Language Arts II"].forEach((subject, index) => {
+      const subjectChip = document.createElement("div");
+      subjectChip.className = "ability-subject-chip";
+      const subjectIndex = document.createElement("span");
+      subjectIndex.textContent = `0${index + 1}`;
+      const subjectName = document.createElement("strong");
+      subjectName.textContent = subject;
+      subjectChip.append(subjectIndex, subjectName);
+      subjectList.append(subjectChip);
     });
+    testPanelBody.append(testSummary, subjectList);
 
-    const minimumScore = document.createElement("div");
-    minimumScore.className = "ability-minimum-score";
-    const score = document.createElement("strong");
-    score.textContent = "684";
-    const scoreCaption = document.createElement("span");
-    scoreCaption.textContent = "minimum score required";
-    minimumScore.append(score, scoreCaption);
+    const retakeNote = document.createElement("aside");
+    retakeNote.className = "ability-retake-note";
+    retakeNote.setAttribute("role", "note");
+    const retakeLabel = document.createElement("strong");
+    retakeLabel.className = "ability-retake-label";
+    retakeLabel.textContent = "Retake support";
+    const retakeText = document.createElement("p");
+    retakeText.innerHTML =
+      "If a student does not pass, the school provides <strong>remediation and support</strong>, and the student retakes the test at least once.";
+    retakeNote.append(retakeLabel, retakeText);
+    testPanel.append(testPanelHeading, testPanelBody, retakeNote);
 
-    const pathwayNote = document.createElement("p");
-    pathwayNote.className = "ability-pathway-note";
-    pathwayNote.textContent =
-      "Complete both assessments and meet the required score to use this pathway.";
+    const pathwaySection = document.createElement("section");
+    pathwaySection.className = "ability-pathway-section";
+    pathwaySection.setAttribute("aria-labelledby", "ability-pathways-title");
+    const pathwayHeader = document.createElement("header");
+    pathwayHeader.className = "ability-pathway-header";
+    const pathwayTitle = document.createElement("h2");
+    pathwayTitle.id = "ability-pathways-title";
+    pathwayTitle.textContent = "Other ways to show competency";
+    const pathwayHint = document.createElement("p");
+    pathwayHint.textContent = "Select a pathway to see its requirements.";
+    pathwayHeader.append(pathwayTitle, pathwayHint);
 
-    leftSection.append(
-      requirementHeading,
-      leftText,
-      testSubjects,
-      minimumScore,
-      pathwayNote,
-    );
-
-    const divider = document.createElement("div");
-    divider.className = "ability-divider";
-    divider.setAttribute("aria-label", "Or");
-    const orLabel = document.createElement("span");
-    orLabel.textContent = "OR";
-    divider.append(orLabel);
-
-    const rightSection = document.createElement("section");
-    rightSection.className = "ability-section ability-section-alternatives";
-    const rightText = document.createElement("p");
-    rightText.className = "ability-intro";
-    rightText.textContent =
-      "Before being eligible to demonstrate competency in one of these, students must first receive a recommendation and retake the test.";
-    const alternatives = document.createElement("div");
-    alternatives.className = "ability-options";
-    [
+    const routeGrid = document.createElement("div");
+    routeGrid.className = "ability-route-grid";
+    const pathways = [
       {
-        label: "SAT or ACT",
-        description:
-          "The SAT and ACT are standardized tests widely used for college admissions in the United States.",
+        letter: "A",
+        title: "ACT or SAT",
+        category: "Test score",
         imageurl:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsjfs-ue81Yqth19KOV9n6gvZXy2UK337VduWEVl8aPQ&s=10",
+        summary: "Earn a remediation-free score in the subject area not passed.",
+        intro:
+          "Use a remediation-free score in the math or English subject area that corresponds to the state test not passed.",
+        sections: [],
       },
       {
-        label: "College Credit Plus",
-        description:
-          "College Credit Plus (CCP) is Ohio's dual-enrollment program that allows students in grades 7–12 to earn college and high school credits at the same time.",
-        imageurl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmwsxXXs-mULbEM_zweQm2QHpIqlU96XiMbjEq5ogatw&s=10",
-      },
-      {
-        label: "Career Technical",
-        description:
-          "Career and Technical Education (CTE) is a school program that teaches students specific technical and job skills for high-demand careers.",
+        letter: "B",
+        title: "Combine two options",
+        category: "Two-part pathway",
         imageurl:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf4zT0hBfGUpQEKX3GNEb-7h6SmF7yRHScayjp1DP1Zg&s=10",
+        summary: "Complete 2 options, including at least 1 foundational option.",
+        intro:
+          "Complete two qualifying options. At least one must come from the foundational group; the second may be foundational or supporting.",
+        sections: [
+          {
+            title: "Foundational options",
+            items: [
+              "Earn proficient scores on 3 or more WebXams in one career pathway.",
+              "Earn a 12-point approved industry-recognized credential, or a group of credentials.",
+              "Complete a pre-apprenticeship recognized by the Ohio State Apprentice Council, a registered apprenticeship in the chosen career field, or provide acceptance evidence for an approved apprenticeship restricted to participants age 18 or older.",
+            ],
+          },
+          {
+            title: "Supporting options",
+            items: [
+              "Complete a 250-hour work-based learning experience with positive evaluations.",
+              "Earn the required score on WorkKeys.",
+              "Earn the OhioMeansJobs Readiness Seal.",
+            ],
+          },
+        ],
       },
       {
-        label: "Military Readiness",
-        description:
-          "Military readiness is the ability of a military force to fight and successfully execute its assigned missions at any given moment.",
+        letter: "C",
+        title: "Military enlistment",
+        category: "Service",
         imageurl:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTi2t--A9J-y1IbKg51y0XV21oC9yJ5Y3TKZZp7DvH1pQ&s=10",
+        summary: "Provide a signed contract to enter a U.S. armed service branch after graduation.",
+        intro:
+          "Enlist in the military and present evidence of a signed contract to enter a branch of the U.S. armed services upon graduation.",
+        sections: [],
       },
-    ].forEach((pathway) => {
-      const option = document.createElement("article");
-      option.className = "ability-option";
-      option.tabIndex = 0;
-      option.setAttribute("role", "button");
-      option.setAttribute("aria-expanded", "false");
-      //insert icon here
-      const icon = document.createElement("img");
-      icon.className = "ability-icon-image";
-      icon.src = pathway.imageurl;
-      icon.alt = `${pathway.label} icon`;
-      const optionLabel = document.createElement("h3");
-      optionLabel.textContent = pathway.label;
-      const descriptionClip = document.createElement("div");
-      descriptionClip.className = "ability-option-description-clip";
-      const description = document.createElement("p");
-      description.className = "ability-option-description";
-      description.textContent = pathway.description;
-      descriptionClip.append(description);
-      const toggleDescription = () => {
-        const isExpanded = option.classList.toggle("is-expanded");
-        option.setAttribute("aria-expanded", String(isExpanded));
-      };
-      option.addEventListener("click", toggleDescription);
-      option.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" || event.key === " ") {
+      {
+        letter: "D",
+        title: "College Credit Plus",
+        category: "College credit",
+        imageurl:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmwsxXXs-mULbEM_zweQm2QHpIqlU96XiMbjEq5ogatw&s=10",
+        summary: "Earn college-level credit in the subject area not passed.",
+        intro:
+          "Earn credit through the College Credit Plus Program for a college-level math and/or English course in the subject area(s) not passed on the state exams.",
+        sections: [],
+      },
+    ];
+
+    pathways.forEach((pathway) => {
+      const routeButton = document.createElement("button");
+      routeButton.className = "ability-route-card";
+      routeButton.type = "button";
+      routeButton.setAttribute("aria-haspopup", "dialog");
+
+      const routeTop = document.createElement("span");
+      routeTop.className = "ability-route-top";
+      const routeLetter = document.createElement("span");
+      routeLetter.className = "ability-route-letter";
+      routeLetter.textContent = `${pathway.letter}.`;
+      const routeImage = document.createElement("img");
+      routeImage.className = "ability-route-image";
+      routeImage.src = pathway.imageurl;
+      routeImage.alt = "";
+      const category = document.createElement("span");
+      category.className = "ability-route-category";
+      category.textContent = pathway.category;
+      routeTop.append(routeLetter, routeImage, category);
+
+      const routeTitle = document.createElement("h3");
+      routeTitle.textContent = pathway.title;
+      const routeSummary = document.createElement("p");
+      routeSummary.textContent = pathway.summary;
+      const routeAction = document.createElement("span");
+      routeAction.className = "ability-route-action";
+      routeAction.setAttribute("aria-hidden", "true");
+      routeAction.textContent = "View requirements";
+      routeButton.append(routeTop, routeTitle, routeSummary, routeAction);
+
+      const dialog = document.createElement("dialog");
+      dialog.className = "ability-detail-dialog";
+      dialog.setAttribute("aria-labelledby", `ability-dialog-title-${pathway.letter}`);
+
+      const dialogHeader = document.createElement("header");
+      dialogHeader.className = "ability-dialog-header";
+      const dialogTitleGroup = document.createElement("div");
+      const dialogEyebrow = document.createElement("span");
+      dialogEyebrow.className = "ability-dialog-eyebrow";
+      dialogEyebrow.textContent = `PATHWAY ${pathway.letter} · ${pathway.category.toUpperCase()}`;
+      const dialogTitle = document.createElement("h2");
+      dialogTitle.id = `ability-dialog-title-${pathway.letter}`;
+      dialogTitle.textContent = pathway.title;
+      dialogTitleGroup.append(dialogEyebrow, dialogTitle);
+
+      const dialogClose = document.createElement("button");
+      dialogClose.className = "ability-dialog-close";
+      dialogClose.type = "button";
+      dialogClose.setAttribute("aria-label", "Close pathway details");
+      dialogClose.textContent = "×";
+      dialogHeader.append(dialogTitleGroup, dialogClose);
+
+      const dialogIntro = document.createElement("p");
+      dialogIntro.className = "ability-dialog-intro";
+      dialogIntro.textContent = pathway.intro;
+      dialog.append(dialogHeader, dialogIntro);
+
+      pathway.sections.forEach((section) => {
+        const detailSection = document.createElement("section");
+        detailSection.className = "ability-detail-section";
+        const sectionHeading = document.createElement("h3");
+        sectionHeading.textContent = section.title;
+        const list = document.createElement("ul");
+        section.items.forEach((itemText) => {
+          const item = document.createElement("li");
+          item.textContent = itemText;
+          list.append(item);
+        });
+        detailSection.append(sectionHeading, list);
+        dialog.append(detailSection);
+      });
+
+      const dialogFootnote = document.createElement("p");
+      dialogFootnote.className = "ability-dialog-footnote";
+      dialogFootnote.textContent =
+        "Check with your school counselor for current eligibility details and documentation requirements.";
+      dialog.append(dialogFootnote);
+
+      dialogClose.addEventListener("click", () => dialog.close());
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+      dialog.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
           event.preventDefault();
-          toggleDescription();
+          dialog.close();
         }
       });
-      option.append(icon, optionLabel, descriptionClip);
-      alternatives.append(option);
+      dialog.addEventListener("close", () => {
+        dialog.remove();
+        routeButton.focus();
+      });
+      routeButton.addEventListener("click", () => {
+        document.body.append(dialog);
+        dialog.showModal();
+      });
+      routeGrid.append(routeButton);
     });
-    rightSection.append(rightText, alternatives);
-    contentWrapper.append(leftSection, divider, rightSection);
+
+    pathwaySection.append(pathwayHeader, routeGrid);
+    contentWrapper.append(pageHeader, testPanel, pathwaySection);
   });
 }
 
