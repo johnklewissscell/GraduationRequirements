@@ -662,7 +662,13 @@
   > .seal-card[data-expanded-slot="4-4"] { grid-area: 4 / 4; }
 
 .seal-card.is-selected .seal-details {
+  flex: 0 0 auto;
   gap: 12px;
+}
+
+.seal-card.is-selected > .seal-image-link,
+.seal-card.is-selected > h3 {
+  flex: 0 0 auto;
 }
 
 .seal-details-heading {
@@ -1449,9 +1455,11 @@ body.credit-detail-closing #gradreq-main {
     height: 100%;
     min-height: 0;
     overflow-y: auto;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: center;
     scrollbar-gutter: stable;
-    padding-block: clamp(24px, 3vh, 40px);
+    padding-block: clamp(28px, 4vh, 44px);
+    overscroll-behavior: contain;
   }
 }
 
@@ -1462,7 +1470,10 @@ body.credit-detail-closing #gradreq-main {
     grid-area: 1 / 1 / span 3 / -1 !important;
     min-height: 380px;
     overflow-y: auto;
-    padding-block: 28px;
+    justify-content: flex-start;
+    align-items: center;
+    padding-block: 20px;
+    overscroll-behavior: contain;
   }
 }
 
