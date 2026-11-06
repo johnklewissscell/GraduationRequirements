@@ -733,28 +733,15 @@ creditsButton.addEventListener("click", () => {
 
     const contextBox = document.createElement("section");
     contextBox.className = "credit-page-context";
-    const contextToggle = document.createElement("button");
-    contextToggle.className = "credit-page-context-toggle";
-    contextToggle.type = "button";
-    contextToggle.setAttribute("aria-expanded", "false");
-    contextToggle.setAttribute("aria-controls", "credit-page-context-text");
-    contextToggle.textContent = "＋ Additional credit information";
+    const contextHeading = document.createElement("h3");
+    contextHeading.className = "credit-page-context-heading";
+    contextHeading.textContent = "Additional credit information";
 
     const contextText = document.createElement("p");
-    contextText.id = "credit-page-context-text";
     contextText.className = "credit-page-context-text";
     contextText.textContent = creditPageContext;
-    contextText.hidden = true;
 
-    contextToggle.addEventListener("click", () => {
-      const isExpanded = contextToggle.getAttribute("aria-expanded") !== "true";
-      contextToggle.setAttribute("aria-expanded", String(isExpanded));
-      contextToggle.textContent = `${isExpanded ? "−" : "＋"} Additional credit information`;
-      contextText.hidden = !isExpanded;
-      contextBox.classList.toggle("is-expanded", isExpanded);
-    });
-
-    contextBox.append(contextToggle, contextText);
+    contextBox.append(contextHeading, contextText);
     contentWrapper.append(contextBox);
 
     const cardGrid = document.createElement("div");
