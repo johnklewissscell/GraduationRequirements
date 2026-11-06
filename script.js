@@ -42,12 +42,13 @@ const seals = [
   // State Seals
   {
     id: 1,
-    name: "Military Enlistment Seal",
+    name: "Military Seal",
     type: "State",
     description:
-      "Provide evidence that a student has enlisted in a branch of the U.S. Armed Forces.",
+      "Provide evidence that a student has enlisted in a branch of the U.S. Armed Forces, or do another option listed on the linked site.",
     imageurl:
       "https://education.ohio.gov/getattachment/Topics/Ohio-s-Graduation-Requirements/Ohio%E2%80%99s-Graduation-Requirements/Graduation-Seals/Military-btn.png.aspx",
+    linkurl: "https://education.ohio.gov/Topics/Ohio-s-Graduation-Requirements/Ohio%E2%80%99s-Graduation-Requirements/Graduation-Seals/Military-Entlistment-Seal",
   },
   {
     id: 2,
@@ -57,59 +58,66 @@ const seals = [
       "Earn a proficient score on the Biology end-of-course exam or meet alternative advanced science criteria.",
     imageurl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3jsdBs2gFTL1B67mKdFMSMjgJ4RGAv4S6iJhoyf10ug&s=10",
+    linkurl: "https://education.ohio.gov/Topics/Ohio-s-Graduation-Requirements/Ohio%e2%80%99s-Graduation-Requirements/Graduation-Seals/Science-Seal",
   },
   {
     id: 3,
     name: "OhioMeansJobs Readiness Seal",
     type: "State",
     description:
-      "Meet the requirements and criteria established for the readiness seal, demonstrating work-readiness and professional competencies.",
+      "Demonstrate specific professional skills required for success in the workplace.",
     imageurl:
       "https://education.ohio.gov/getattachment/Topics/Ohio-s-Graduation-Requirements/Ohio%E2%80%99s-Graduation-Requirements/Graduation-Seals/OMJ-btn.png.aspx",
+    linkurl: "https://education.ohio.gov/Topics/Ohio-s-Graduation-Requirements/Ohio%E2%80%99s-Graduation-Requirements/Graduation-Seals/OhioMeansJobs-Readiness-Seal",
   },
   {
     id: 4,
     name: "Industry-Recognized Credential Seal",
     type: "State",
     description:
-      "Earn a 12-point approved industry-recognized credential or group of credentials in a single career field.",
+      "Earn a 12-point approved industry-recognized credential, a group of credentials in a single career field, or obtain a state issued license for practice in an exam-requiring vocation.",
     imageurl:
       "https://education.ohio.gov/getattachment/Topics/Ohio-s-Graduation-Requirements/Ohio%E2%80%99s-Graduation-Requirements/Graduation-Seals/IRC-btn.png.aspx",
+    linkurl: "https://education.ohio.gov/Topics/Ohio-s-Graduation-Requirements/Ohio%E2%80%99s-Graduation-Requirements/Graduation-Seals/Industry-Recognized-Credential-Seal",
   },
   {
     id: 5,
     name: "College-Ready Seal",
     type: "State",
-    description: "Earn remediation-free scores on the ACT or SAT.",
+    description: "Earn remediation-free scores on the ACT, SAT, or CLEP.",
     imageurl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWZj4JABUtYEEDugFNnRS0u4CG1uZB8ZjEFdDMzfjn2g&s=10",
+    linkurl: "https://education.ohio.gov/Topics/Ohio-s-Graduation-Requirements/Ohio%E2%80%99s-Graduation-Requirements/Graduation-Seals/College-Ready-Seal",
   },
   {
     id: 6,
     name: "Citizenship Seal",
     type: "State",
     description:
-      "Earn a score of proficient or higher on both the American History and American Government end-of-course exams.",
+      "Satisfy one of the American History options and one of the American Government options listed on the linked site.",
     imageurl:
       "https://education.ohio.gov/getattachment/Topics/Ohio-s-Graduation-Requirements/Ohio%E2%80%99s-Graduation-Requirements/Graduation-Seals/Citizenship-btn.png.aspx",
+    linkurl: "https://education.ohio.gov/Topics/Ohio-s-Graduation-Requirements/Ohio%e2%80%99s-Graduation-Requirements/Graduation-Seals/Citizenship-Seal",
   },
   {
     id: 7,
     name: "Seal of Biliteracy",
     type: "State",
     description:
-      "Meet requirements including proficiency requirements on assessments in English and a world language.",
+      "Demonstrate high levels of proficiency in English and at least one other language.",
     imageurl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRK_Q3dvjAPzbxH8UVVWKijMsRVQ_2QaWRurLV4AAk3Sw&s=10",
+    linkurl: "https://education.ohio.gov/Topics/Ohio-s-Graduation-Requirements/Ohio%E2%80%99s-Graduation-Requirements/Graduation-Seals/Seal-of-Biliteracy",
   },
   {
     id: 8,
     name: "Honors Diploma Seal",
     type: "State",
     description:
-      "Satisfy the requirements for any of the state-recognized honors diplomas.",
+      "Earn one of six honors diplomas as outlined on the linked site.",
     imageurl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScG6tMArZZlLZGNy8giWmjIxMJwPKueKOYHKKArfU49Q&s=10",
+    linkurl: "https://education.ohio.gov/Topics/Ohio-s-Graduation-Requirements/Ohio%e2%80%99s-Graduation-Requirements/Graduation-Seals/Honors-Seal",
   },
 
   // Local Seals (Defined by local school districts)
@@ -122,6 +130,7 @@ const seals = [
       "Demonstrate skills in courses or through extra-curricular activities.",
     imageurl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiXcji2Fu6gKUT48WIoozhWM4c2gdonDmhfKKqyQ1JOg&s=10",
+    linkurl: "https://education.ohio.gov/Topics/Ohio-s-Graduation-Requirements/Ohio%E2%80%99s-Graduation-Requirements/Graduation-Seals/Locally-Defined-Diploma-Seal",
   },
   {
     id: 10,
@@ -131,6 +140,7 @@ const seals = [
       "Meaningfully participate in Board-approved extra-curricular activities.",
     imageurl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnf2us6QKxpumbHZdcNszqM2NWhzNNdtrZ7U-u5uQ4QQ&s=10",
+    linkurl: "https://education.ohio.gov/Topics/Ohio-s-Graduation-Requirements/Ohio%E2%80%99s-Graduation-Requirements/Graduation-Seals/Locally-Defined-Diploma-Seal",
   },
   {
     id: 11,
@@ -140,6 +150,15 @@ const seals = [
       "Granted to those who complete a community service project.",
     imageurl:
       "https://education.ohio.gov/getattachment/Topics/Ohio-s-Graduation-Requirements/Ohio%E2%80%99s-Graduation-Requirements/Graduation-Seals/CS-btn.png.aspx",
+    linkurl: "https://education.ohio.gov/Topics/Ohio-s-Graduation-Requirements/Ohio%E2%80%99s-Graduation-Requirements/Graduation-Seals/Locally-Defined-Diploma-Seal",
+  },
+  {
+    id: 12,
+    name: "Technology Seal",
+    type: "State",
+    description: "Earn a proficient score on an IB or AP test or meet alternative technology criteria.",
+    imageurl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbObEYFYpQMujgqblJUfaOKMEyTwUszSLrS66RqIaAdw&s=10",
+    linkurl: "https://education.ohio.gov/Topics/Ohio-s-Graduation-Requirements/Ohio%E2%80%99s-Graduation-Requirements/Graduation-Seals/Technology-Seal",
   },
 ];
 
@@ -430,9 +449,38 @@ function buildSealGrid() {
       card.setAttribute("role", "button");
       card.setAttribute("aria-expanded", "false");
 
-      const image = document.createElement("img");
-      image.src = seal.imageurl;
-      image.alt = seal.name;
+      let image;
+      if (seal.imageurl) {
+        image = document.createElement("img");
+        image.src = seal.imageurl;
+        image.alt = seal.name;
+      } else {
+        image = document.createElement("div");
+        image.className = "seal-image-placeholder";
+        image.textContent = "Add image";
+        image.setAttribute("aria-label", `${seal.name} image placeholder`);
+      }
+
+      const imageLink = document.createElement("a");
+      imageLink.className = "seal-image-link";
+      imageLink.setAttribute("aria-label", `Open link for ${seal.name}`);
+      if (seal.linkurl.trim()) {
+        imageLink.href = seal.linkurl;
+        imageLink.target = "_blank";
+        imageLink.rel = "noopener noreferrer";
+        imageLink.tabIndex = -1;
+      } else {
+        imageLink.setAttribute("aria-disabled", "true");
+        imageLink.tabIndex = -1;
+      }
+      imageLink.append(image);
+      imageLink.addEventListener("click", (event) => {
+        if (!card.classList.contains("is-selected")) {
+          event.preventDefault();
+          return;
+        }
+        if (imageLink.hasAttribute("href")) event.stopPropagation();
+      });
 
       const name = document.createElement("h3");
       name.textContent = seal.name;
@@ -469,10 +517,10 @@ function buildSealGrid() {
         setSelectedSeal(null);
       });
 
-      card.append(image, name, details, closeButton);
+      card.append(imageLink, name, details, closeButton);
       card.addEventListener("click", () => setSelectedSeal(seal.id));
       card.addEventListener("keydown", (event) => {
-        if (event.target.closest(".seal-close")) return;
+        if (event.target.closest(".seal-close, .seal-image-link")) return;
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
           setSelectedSeal(seal.id);
@@ -500,6 +548,8 @@ function setSelectedSeal(sealId, animate = true) {
       "3-1",
       "3-4",
       "4-1",
+      "4-2",
+      "4-3",
       "4-4",
     ];
     const cards = [...contentWrapper.querySelectorAll(".seal-card")];
@@ -517,6 +567,10 @@ function setSelectedSeal(sealId, animate = true) {
       const isSelected = expanded && Number(card.dataset.sealId) === sealId;
       card.classList.toggle("is-selected", isSelected);
       card.setAttribute("aria-expanded", String(isSelected));
+      const imageLink = card.querySelector(".seal-image-link");
+      const hasImageLink = imageLink.hasAttribute("href");
+      imageLink.tabIndex = isSelected && hasImageLink ? 0 : -1;
+      imageLink.setAttribute("aria-disabled", String(!isSelected || !hasImageLink));
       card.querySelector(".seal-details").hidden = !isSelected;
       card.querySelector(".seal-close").hidden = !isSelected;
       card.dataset.expandedSlot = isSelected
