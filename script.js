@@ -569,6 +569,7 @@ creditsButton.addEventListener("click", () => {
     courseRequirements.forEach((credit) => {
       const card = document.createElement("article");
       card.className = "credit-card";
+      card.dataset.creditId = credit.id;
       card.tabIndex = 0;
       card.setAttribute("role", "button");
       card.setAttribute("aria-expanded", "false");

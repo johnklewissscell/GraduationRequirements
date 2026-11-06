@@ -346,6 +346,10 @@
   filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.12));
 }
 
+.credit-card[data-credit-id="5"] img {
+  top: calc(50% - 27px);
+}
+
 .credit-card h3 {
   margin: 0;
   font-size: clamp(0.78rem, 1vw, 0.95rem);
@@ -1655,5 +1659,18 @@ body.credit-detail-closing #gradreq-main {
   .ability-options {
     flex: 0 0 auto;
     grid-template-rows: repeat(2, minmax(110px, auto));
+  }
+}
+
+/* Six credits display as three across and two rows on wide screens. */
+.credit-card-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 1000px) {
+  .credit-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(150px, auto));
   }
 }
